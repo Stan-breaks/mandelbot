@@ -37,6 +37,28 @@ fn mandelbrot_at_point(cx: f64, cy: f64, max_iters: usize) -> usize {
     max_iters
 }
 
+fn render_mandrelbrot(escape_vals: Vec<Vec<usize>>) {
+    for row in escape_vals {
+        let mut line = String::with_capacity(row.len());
+        for column in row {
+            let val = match column {
+                0..=2 => ' ',
+                3..=5 => '.',
+                6..=10 => '*',
+                11..=30 => '•',
+                31..=100 => '+',
+                101..=200 => 'x',
+                201..=400 => '$',
+                401..=700 => '#',
+                _ => '%',
+            };
+            line.push(val);
+        }
+        println!("{}", line);
+    }
+}
+
 fn main() {
-    println!("Hello, world!");
+    let mandebrot = calculate_mandelbrot(1000, 2.0, 1.0, -1.0, 1.0, 100, 24);
+    render_mandrelbrot(mandebrot);
 }
